@@ -1,4 +1,7 @@
-﻿using System;
+﻿using StudentRecordViewer.DL;
+using SutdentRecordViewer.BL;
+using System;
+using System.Collections.Generic;
 using TechTalk.SpecFlow;
 
 namespace StudentRecordViewer.SpecFlow.Steps
@@ -7,28 +10,33 @@ namespace StudentRecordViewer.SpecFlow.Steps
     public class SearchStudentIDSteps
     {
         private readonly ScenarioContext _scenarioContext;
+        private readonly IStudentRepository _studentRespository;
 
         public SearchStudentIDSteps(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
+            _studentRespository = new StudentRespository();
         }
 
         [Given(@"the students First name is ""(.*)"" and Last name is ""(.*)""")]
-        public void GivenTheStudentsFirstNameIsAndLastNameIs(string p0, string p1)
+        public void GivenTheStudentsFirstNameIsAndLastNameIs(string firstName, string lastName)
         {
-
+            _scenarioContext["StudentRecords"] = new StudentRecords();
+            _scenarioContext["Student"] = new Student { FirstName = firstName, LastName = lastName };
         }
 
         [Given(@"the student id is (.*)")]
-        public void GivenTheStudentIdIs(int p0)
+        public void GivenTheStudentIdIs(int studentID)
         {
-            ScenarioContext.Current.Pending();
+            var student = (Student)_scenarioContext["Student"];
+            student.ID = studentID;
+            var result = _studentRespository.Add(new List<Student> { student });
         }
         
         [Given(@"user provides Student ID (.*)")]
-        public void GivenUserProvidesStudentID(int p0)
+        public void GivenUserProvidesStudentID(int studentID)
         {
-            ScenarioContext.Current.Pending();
+            _scenarioContext["studentIDProvided"] = studentID;
         }
 
         [Given(@"user provides an Invalid Student ID ""(.*)"" ")]
@@ -50,17 +58,13 @@ namespace StudentRecordViewer.SpecFlow.Steps
             ScenarioContext.Current.Pending();
         }
         
-        [When(@"user searches")]
-        public void WhenUserSearches()
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [When(@"user Search")]
+        [When(@"user search")]
         public void WhenUserSearch()
         {
-            ScenarioContext.Current.Pending();
+            var studentIDToBeSearched = (int)_scenarioContext["studentIDProvided"];
+            _scenarioContext["studentFound"] = _studentRespository.Get(studentIDToBeSearched);
         }
+        
 
         [Then(@"user should see student's First name as ""(.*)"" and Last name as ""(.*)""")]
         public void ThenUserShouldSeeStudentSFirstNameAsAndLastNameAs(string p0, string p1)
