@@ -17,9 +17,17 @@ namespace SutdentRecordViewer.BL
             return _studentRepository.Add(students);
         }
 
-        public Student GetStudent(int studentID)
+        public Student GetStudent(string studentID)
         {
-            return _studentRepository.Get(studentID);
+            if(studentID.Length > 6)
+                throw new ArgumentException(Constants.InvalidStudentIdMessage);
+
+            bool isValidStudentId = int.TryParse(studentID, out int validStudentId);
+
+            if (!isValidStudentId)
+                throw new ArgumentException(Constants.InvalidStudentIdMessage);
+            var foundStudent =  _studentRepository.Get(validStudentId);
+            return foundStudent ?? throw new KeyNotFoundException(Constants.NonExistentStudent);
         }
     }
 }

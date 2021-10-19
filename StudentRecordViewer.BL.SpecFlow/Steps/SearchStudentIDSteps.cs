@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using TechTalk.SpecFlow;
 
-namespace StudentRecordViewer.SpecFlow.Steps
+namespace StudentRecordViewer.BL.SpecFlow.Steps
 {
     [Binding]
     public class SearchStudentIDSteps
@@ -41,57 +41,56 @@ namespace StudentRecordViewer.SpecFlow.Steps
             _scenarioContext["studentIDProvided"] = studentID;
         }
 
-        [Given(@"user provides an Invalid Student ID ""(.*)"" ")]
-        public void GivenUserProvidesAnInvalidStudentID(string p0)
+        [When(@"user search")]
+        public void WhenUserSearch()
         {
-            ScenarioContext.Current.Pending();
+            try
+            {
+                var studentIDToBeSearched = _scenarioContext["studentIDProvided"]?.ToString();
+                _scenarioContext["studentFound"] = _studentRecords.GetStudent(studentIDToBeSearched);
+            }
+            catch (Exception ex)
+            {
+                _scenarioContext["errorMessage"] = ex.Message;
+            }
         }
 
-
-        [Given(@"user provide a non-existing StudentID for (.*)")]
-        public void GivenUserProvideANon_ExistingStudentIDFor(int p0)
+        [Given(@"user provides an Invalid Student ID (.*)")]
+        public void GivenUserProvidesAnInvalidStudentID(string invalidStudentID)
         {
-            ScenarioContext.Current.Pending();
+            _scenarioContext["studentIDProvided"] = invalidStudentID;
+        }
+
+        [Given(@"user provide a non-existing StudentID (.*)")]
+        public void GivenUserProvideANon_ExistingStudentIDFor(int studentID)
+        {
+            _scenarioContext["studentIDProvided"] = studentID;
         }
         
         [Given(@"user do not provide a StudentID")]
         public void GivenUserDoNotProvideAStudentID()
         {
-            ScenarioContext.Current.Pending();
+            _scenarioContext["studentIDProvided"] = string.Empty;
         }
-        
-        [When(@"user search")]
-        public void WhenUserSearch()
-        {
-            var studentIDToBeSearched = (int)_scenarioContext["studentIDProvided"];
-            _scenarioContext["studentFound"] = _studentRecords.GetStudent(studentIDToBeSearched);
-        }
-        
 
         [Then(@"user should see student's First name as ""(.*)"" and Last name as ""(.*)""")]
         public void ThenUserShouldSeeStudentSFirstNameAsAndLastNameAs(string firstName, string lastName)
         {
-            var expectStudent = new Student { FirstName = firstName, LastName = lastName, ID = (int)_scenarioContext["studentIDProvided"]};
+            var expectStudent = new Student { FirstName = firstName, LastName = lastName, ID = (int)_scenarioContext["studentIDProvided"] };
             var actualStudent = (Student)_scenarioContext["studentFound"];
             expectStudent.Should().BeEquivalentTo(actualStudent);
         }
 
-        [Then(@"user should get an Error message stating the StudentID is Invalid\.")]
-        public void ThenUserShouldGetAnErrorMessageStatingTheStudentIDIsInvalid_()
+        [Then(@"user should get an Error message stating the StudentID is Invalid.")]
+        public void ThenUserShouldGetAnErrorMessageStatingTheStudentIDIsInvalid()
         {
-            ScenarioContext.Current.Pending();
+            Assert.AreEqual(Constants.InvalidStudentIdMessage, (string)_scenarioContext["errorMessage"]);
         }
         
         [Then(@"user should get an error message stating StudentID does not exist\.")]
-        public void ThenUserShouldGetAnErrorMessageStatingStudentIDDoesNotExist_()
+        public void ThenUserShouldGetAnErrorMessageStatingStudentIDDoesNotExist()
         {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"user should get an error message stating StudentID is empty\.")]
-        public void ThenUserShouldGetAnErrorMessageStatingStudentIDIsEmpty_()
-        {
-            ScenarioContext.Current.Pending();
+            Assert.AreEqual(Constants.NonExistentStudent, (string)_scenarioContext["errorMessage"]);
         }
     }
 }

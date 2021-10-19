@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentRecordViewer", "StudentRecordViewer\StudentRecordViewer.csproj", "{69C02194-F802-4A01-B713-E82B1329707B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentRecordViewer.SpecFlow", "StudentRecordViewer.SpecFlow\StudentRecordViewer.SpecFlow.csproj", "{387A5CE6-9020-4A49-B0F6-AA3F29821837}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentRecordViewer.BL.SpecFlow", "StudentRecordViewer.BL.SpecFlow\StudentRecordViewer.BL.SpecFlow.csproj", "{387A5CE6-9020-4A49-B0F6-AA3F29821837}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SutdentRecordViewer.BL", "SutdentRecordViewer.BL\SutdentRecordViewer.BL.csproj", "{14E89497-2539-4E79-BEB5-D3047E301F29}"
 EndProject

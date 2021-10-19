@@ -11,7 +11,7 @@ Then user should see student's First name as "Jane" and Last name as "Smith"
 
 Scenario Outline: Get error for an Invalid StudentID
 
-Given user provides an Invalid Student ID "<InvalidStudentId>" 
+Given user provides an Invalid Student ID <InvalidStudentId>
 When user search
 Then user should get an Error message stating the StudentID is Invalid.
 
@@ -23,11 +23,11 @@ Examples:
 | 332323221        |
 
 Scenario: Get error for an non-existing StudentID
-Given user provide a non-existing StudentID for 123456
+Given user provide a non-existing StudentID 123456
 When user search
 Then user should get an error message stating StudentID does not exist.
 
 Scenario: Get error for empty StudentID
 Given user do not provide a StudentID
 When user search
-Then user should get an error message stating StudentID is empty.
+Then user should get an Error message stating the StudentID is Invalid.
