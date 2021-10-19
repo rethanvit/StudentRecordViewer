@@ -1,4 +1,6 @@
-﻿using StudentRecordViewer.DL;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StudentRecordViewer.DL;
 using SutdentRecordViewer.BL;
 using System;
 using System.Collections.Generic;
@@ -10,18 +12,18 @@ namespace StudentRecordViewer.SpecFlow.Steps
     public class SearchStudentIDSteps
     {
         private readonly ScenarioContext _scenarioContext;
-        private readonly IStudentRepository _studentRespository;
+        private readonly IStudentRecords _studentRecords;
 
         public SearchStudentIDSteps(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-            _studentRespository = new StudentRespository();
+            _studentRecords = new StudentRecords(new StudentRespository());
         }
 
         [Given(@"the students First name is ""(.*)"" and Last name is ""(.*)""")]
         public void GivenTheStudentsFirstNameIsAndLastNameIs(string firstName, string lastName)
         {
-            _scenarioContext["StudentRecords"] = new StudentRecords();
+            
             _scenarioContext["Student"] = new Student { FirstName = firstName, LastName = lastName };
         }
 
@@ -30,7 +32,7 @@ namespace StudentRecordViewer.SpecFlow.Steps
         {
             var student = (Student)_scenarioContext["Student"];
             student.ID = studentID;
-            var result = _studentRespository.Add(new List<Student> { student });
+            var result = _studentRecords.AddStudent(new List<Student> { student });
         }
         
         [Given(@"user provides Student ID (.*)")]
@@ -62,14 +64,16 @@ namespace StudentRecordViewer.SpecFlow.Steps
         public void WhenUserSearch()
         {
             var studentIDToBeSearched = (int)_scenarioContext["studentIDProvided"];
-            _scenarioContext["studentFound"] = _studentRespository.Get(studentIDToBeSearched);
+            _scenarioContext["studentFound"] = _studentRecords.GetStudent(studentIDToBeSearched);
         }
         
 
         [Then(@"user should see student's First name as ""(.*)"" and Last name as ""(.*)""")]
-        public void ThenUserShouldSeeStudentSFirstNameAsAndLastNameAs(string p0, string p1)
+        public void ThenUserShouldSeeStudentSFirstNameAsAndLastNameAs(string firstName, string lastName)
         {
-            ScenarioContext.Current.Pending();
+            var expectStudent = new Student { FirstName = firstName, LastName = lastName, ID = (int)_scenarioContext["studentIDProvided"]};
+            var actualStudent = (Student)_scenarioContext["studentFound"];
+            expectStudent.Should().BeEquivalentTo(actualStudent);
         }
 
         [Then(@"user should get an Error message stating the StudentID is Invalid\.")]

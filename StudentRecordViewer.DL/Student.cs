@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SutdentRecordViewer.BL
+namespace StudentRecordViewer.DL
 {
     public class Student
     {

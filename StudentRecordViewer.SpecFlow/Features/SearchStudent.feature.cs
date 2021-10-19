@@ -138,7 +138,7 @@ this.FeatureBackground();
 testRunner.Given("user provides Student ID 342232", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 9
-testRunner.When("user searches", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
 testRunner.Then("user should see student\'s First name as \"Jane\" and Last name as \"Smith\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -180,7 +180,7 @@ this.FeatureBackground();
 testRunner.Given(string.Format("user provides an Invalid Student ID \"{0}\"", invalidStudentId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 15
-testRunner.When("user Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 16
 testRunner.Then("user should get an Error message stating the StudentID is Invalid.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -272,7 +272,7 @@ this.FeatureBackground();
 testRunner.Given("user provide a non-existing StudentID for 123456", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 27
-testRunner.When("user Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 28
 testRunner.Then("user should get an error message stating StudentID does not exist.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -316,7 +316,7 @@ this.FeatureBackground();
 testRunner.Given("user do not provide a StudentID", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 32
-testRunner.When("user Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 33
 testRunner.Then("user should get an error message stating StudentID is empty.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
