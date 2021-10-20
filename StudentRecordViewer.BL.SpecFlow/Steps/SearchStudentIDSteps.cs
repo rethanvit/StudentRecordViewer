@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StudentRecordViewer.DL;
 using SutdentRecordViewer.BL;
 using System;
@@ -9,6 +8,7 @@ using TechTalk.SpecFlow;
 namespace StudentRecordViewer.BL.SpecFlow.Steps
 {
     [Binding]
+    [Scope(Feature = "SearchStudentID")]
     public class SearchStudentIDSteps
     {
         private readonly ScenarioContext _scenarioContext;
@@ -23,7 +23,6 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         [Given(@"the students First name is ""(.*)"" and Last name is ""(.*)""")]
         public void GivenTheStudentsFirstNameIsAndLastNameIs(string firstName, string lastName)
         {
-            
             _scenarioContext["Student"] = new Student { FirstName = firstName, LastName = lastName };
         }
 
@@ -34,11 +33,11 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
             student.ID = studentID;
             var result = _studentRecords.AddStudent(new List<Student> { student });
         }
-        
+
         [Given(@"user provides Student ID (.*)")]
-        public void GivenUserProvidesStudentID(int studentID)
+        public void GivenUserProvidesStudentID(string invalidStudentId)
         {
-            _scenarioContext["studentIDProvided"] = studentID;
+            _scenarioContext["studentIDProvided"] = invalidStudentId;
         }
 
         [When(@"user search")]
@@ -55,18 +54,6 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
             }
         }
 
-        [Given(@"user provides an Invalid Student ID (.*)")]
-        public void GivenUserProvidesAnInvalidStudentID(string invalidStudentID)
-        {
-            _scenarioContext["studentIDProvided"] = invalidStudentID;
-        }
-
-        [Given(@"user provide a non-existing StudentID (.*)")]
-        public void GivenUserProvideANon_ExistingStudentIDFor(int studentID)
-        {
-            _scenarioContext["studentIDProvided"] = studentID;
-        }
-        
         [Given(@"user do not provide a StudentID")]
         public void GivenUserDoNotProvideAStudentID()
         {
@@ -76,9 +63,9 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         [Then(@"user should see student's First name as ""(.*)"" and Last name as ""(.*)""")]
         public void ThenUserShouldSeeStudentSFirstNameAsAndLastNameAs(string firstName, string lastName)
         {
-            var expectStudent = new Student { FirstName = firstName, LastName = lastName, ID = (int)_scenarioContext["studentIDProvided"] };
             var actualStudent = (Student)_scenarioContext["studentFound"];
-            expectStudent.Should().BeEquivalentTo(actualStudent);
+            Assert.AreEqual(firstName, actualStudent.FirstName);
+            Assert.AreEqual(lastName, actualStudent.LastName);
         }
 
         [Then(@"user should get an Error message stating the StudentID is Invalid.")]

@@ -48,7 +48,7 @@ namespace StudentRecordViewer.BL.SpecFlow.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Search Student ID", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SearchStudentID", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -63,7 +63,7 @@ namespace StudentRecordViewer.BL.SpecFlow.Features
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Search Student ID")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "SearchStudentID")))
             {
                 global::StudentRecordViewer.BL.SpecFlow.Features.SearchStudentIDFeature.FeatureSetup(null);
             }
@@ -105,7 +105,7 @@ testRunner.And("the student id is 342232", ((string)(null)), ((TechTalk.SpecFlow
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get First and Last Name for a Valid StudentID")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Search Student ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SearchStudentID")]
         public virtual void GetFirstAndLastNameForAValidStudentID()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -177,7 +177,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 14
-testRunner.Given(string.Format("user provides an Invalid Student ID {0}", invalidStudentId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given(string.Format("user provides Student ID {0}", invalidStudentId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 15
 testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -191,7 +191,7 @@ testRunner.Then("user should get an Error message stating the StudentID is Inval
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get error for an Invalid StudentID: ABD234X")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Search Student ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SearchStudentID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "ABD234X")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:InvalidStudentId", "ABD234X")]
         public virtual void GetErrorForAnInvalidStudentID_ABD234X()
@@ -203,7 +203,7 @@ this.GetErrorForAnInvalidStudentID("ABD234X", ((string[])(null)));
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get error for an Invalid StudentID: aa  3433b")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Search Student ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SearchStudentID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "aa  3433b")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:InvalidStudentId", "aa  3433b")]
         public virtual void GetErrorForAnInvalidStudentID_Aa3433B()
@@ -215,7 +215,7 @@ this.GetErrorForAnInvalidStudentID("aa  3433b", ((string[])(null)));
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get error for an Invalid StudentID: 32123 23")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Search Student ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SearchStudentID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "32123 23")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:InvalidStudentId", "32123 23")]
         public virtual void GetErrorForAnInvalidStudentID_3212323()
@@ -227,7 +227,7 @@ this.GetErrorForAnInvalidStudentID("32123 23", ((string[])(null)));
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get error for an Invalid StudentID: 332323221")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Search Student ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SearchStudentID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "332323221")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:InvalidStudentId", "332323221")]
         public virtual void GetErrorForAnInvalidStudentID_332323221()
@@ -239,7 +239,7 @@ this.GetErrorForAnInvalidStudentID("332323221", ((string[])(null)));
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get error for an non-existing StudentID")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Search Student ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SearchStudentID")]
         public virtual void GetErrorForAnNon_ExistingStudentID()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -269,7 +269,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 26
-testRunner.Given("user provide a non-existing StudentID 123456", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given("user provides Student ID 123456", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 27
 testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -283,7 +283,7 @@ testRunner.Then("user should get an error message stating StudentID does not exi
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get error for empty StudentID")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Search Student ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SearchStudentID")]
         public virtual void GetErrorForEmptyStudentID()
         {
             string[] tagsOfScenario = ((string[])(null));

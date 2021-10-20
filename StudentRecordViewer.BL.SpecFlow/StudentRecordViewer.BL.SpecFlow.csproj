@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <CustomAdditionalCompileInputs Remove="Features\StudentDegreeStatus.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckBuild Remove="Features\StudentDegreeStatus.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.11" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.5" />
 
