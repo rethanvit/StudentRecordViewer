@@ -48,9 +48,9 @@ namespace StudentRecordViewer.BL.SpecFlow.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "StudentDegreeStatus", "\tAs a Student Record Administrator, when searching a Student ID, I want to see st" +
-                    "udent’s degree status so that I know if the student is Awarded a degree / awarde" +
-                    "d an Extended degree / Disqualified.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "StudentDegreeStatus", "As a Student Record Administrator, when searching a Student ID, \r\nI want to see s" +
+                    "tudent’s degree status so that I know if the student is \r\nAwarded a degree / awa" +
+                    "rded an Extended degree / Disqualified.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -93,95 +93,21 @@ namespace StudentRecordViewer.BL.SpecFlow.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-#line 4
-#line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "StudentID",
-                        "FirstName",
-                        "LastName",
-                        "FirstYearCredits",
-                        "SecondYearCredits",
-                        "ThirdYearCredits",
-                        "FourthYearCredits",
-                        "FifthYearCredits"});
-            table1.AddRow(new string[] {
-                        "134567",
-                        "John",
-                        "Stacks",
-                        "30",
-                        "40",
-                        "40",
-                        "10",
-                        "40"});
-            table1.AddRow(new string[] {
-                        "145645",
-                        "Jack",
-                        "Wright",
-                        "40",
-                        "30",
-                        "40",
-                        "10",
-                        "40"});
-            table1.AddRow(new string[] {
-                        "232334",
-                        "Josh",
-                        "Monty",
-                        "20",
-                        "40",
-                        "0",
-                        "",
-                        ""});
-            table1.AddRow(new string[] {
-                        "234234",
-                        "Jermey",
-                        "Clark",
-                        "40",
-                        "40",
-                        "40",
-                        "40",
-                        ""});
-            table1.AddRow(new string[] {
-                        "456456",
-                        "Mike",
-                        "Stacy",
-                        "30",
-                        "30",
-                        "0",
-                        "",
-                        ""});
-            table1.AddRow(new string[] {
-                        "345345",
-                        "Kelly",
-                        "Caster",
-                        "40",
-                        "0",
-                        "30",
-                        "40",
-                        ""});
-            table1.AddRow(new string[] {
-                        "345348",
-                        "Stella",
-                        "Caster",
-                        "40",
-                        "0",
-                        "30",
-                        "40",
-                        "40"});
-#line 5
-testRunner.Given("Following is the list of student data available", ((string)(null)), table1, "Given ");
-#line hidden
-        }
-        
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted(string studentID, string degreeStatus, string[] exampleTags)
+        public virtual void StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years(string studentID, string firstName, string lastName, string firstYearCredits, string secondYearCredits, string thirdYearCredits, string fourthYearCredits, string fifthYearCredits, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("StudentID", studentID);
-            argumentsOfScenario.Add("DegreeStatus", degreeStatus);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Student\'s degree status is determined based on the credits completed", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 17
+            argumentsOfScenario.Add("FirstName", firstName);
+            argumentsOfScenario.Add("LastName", lastName);
+            argumentsOfScenario.Add("FirstYearCredits", firstYearCredits);
+            argumentsOfScenario.Add("SecondYearCredits", secondYearCredits);
+            argumentsOfScenario.Add("ThirdYearCredits", thirdYearCredits);
+            argumentsOfScenario.Add("FourthYearCredits", fourthYearCredits);
+            argumentsOfScenario.Add("FifthYearCredits", fifthYearCredits);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Student\'s degree status is determined to be Disqualified when 160 credits were no" +
+                    "t completed in 5 years", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -201,110 +127,300 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 4
-this.FeatureBackground();
+#line 10
+testRunner.Given(string.Format("the student data is available as {0} {1} {2} {3} {4} {5} {6} {7}", studentID, firstName, lastName, firstYearCredits, secondYearCredits, thirdYearCredits, fourthYearCredits, fifthYearCredits), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 18
-testRunner.Given(string.Format("user provides Student ID {0}", studentID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 11
+testRunner.And(string.Format("user provides Student ID {0} who could not complete 160 credits in 5 years", studentID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 19
+#line 12
 testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 20
-testRunner.Then(string.Format("student\'s status is determined to be {0}", degreeStatus), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 13
+testRunner.Then("student\'s status is determined to be \"Disqualified\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined based on the credits completed: 134567")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Disqualified when 160 credits were no" +
+            "t completed in 5 years: 134567")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "134567")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "134567")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:DegreeStatus", "Extended")]
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted_134567()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "John")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Stacks")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "30")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "30")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "20")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "0")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years_134567()
         {
-#line 17
-this.StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted("134567", "Extended", ((string[])(null)));
+#line 8
+this.StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years("134567", "John", "Stacks", "30", "40", "30", "20", "0", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined based on the credits completed: 145645")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Disqualified when 160 credits were no" +
+            "t completed in 5 years: 145645")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "145645")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "145645")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:DegreeStatus", "Extended")]
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted_145645()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "Jack")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Wright")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "20")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "0")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years_145645()
         {
-#line 17
-this.StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted("145645", "Extended", ((string[])(null)));
+#line 8
+this.StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years("145645", "Jack", "Wright", "40", "20", "40", "0", "0", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined based on the credits completed: 232334")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Disqualified when 160 credits were no" +
+            "t completed in 5 years: 232334")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "232334")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "232334")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:DegreeStatus", "Disqualified")]
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted_232334()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "Josh")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Monty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "20")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years_232334()
         {
-#line 17
-this.StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted("232334", "Disqualified", ((string[])(null)));
+#line 8
+this.StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years("232334", "Josh", "Monty", "20", "40", "0", "", "", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined based on the credits completed: 234234")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Disqualified when 160 credits were no" +
+            "t completed in 5 years: 234234")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "234234")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "234234")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:DegreeStatus", "Awarded")]
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted_234234()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "Jermey")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Clark")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "0")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years_234234()
         {
-#line 17
-this.StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted("234234", "Awarded", ((string[])(null)));
+#line 8
+this.StudentsDegreeStatusIsDeterminedToBeDisqualifiedWhen160CreditsWereNotCompletedIn5Years("234234", "Jermey", "Clark", "40", "40", "0", "40", "0", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years(string studentID, string firstName, string lastName, string firstYearCredits, string secondYearCredits, string thirdYearCredits, string fourthYearCredits, string fifthYearCredits, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("StudentID", studentID);
+            argumentsOfScenario.Add("FirstName", firstName);
+            argumentsOfScenario.Add("LastName", lastName);
+            argumentsOfScenario.Add("FirstYearCredits", firstYearCredits);
+            argumentsOfScenario.Add("SecondYearCredits", secondYearCredits);
+            argumentsOfScenario.Add("ThirdYearCredits", thirdYearCredits);
+            argumentsOfScenario.Add("FourthYearCredits", fourthYearCredits);
+            argumentsOfScenario.Add("FifthYearCredits", fifthYearCredits);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Student\'s degree status is determined to be Extended on completion of 160 credits" +
+                    ", but took more than 4 years", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 24
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 26
+testRunner.Given(string.Format("the student data is available as {0} {1} {2} {3} {4} {5} {6} {7}", studentID, firstName, lastName, firstYearCredits, secondYearCredits, thirdYearCredits, fourthYearCredits, fifthYearCredits), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 27
+testRunner.And(string.Format("user provides Student ID {0} who needed more than 4 years to complete 160 credits" +
+                            "", studentID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 28
+testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 29
+testRunner.Then("student\'s status is determined to be \"Extended\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Extended on completion of 160 credits" +
+            ", but took more than 4 years: 134567")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "134567")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "134567")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "John")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Stacks")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "30")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "30")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "30")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "30")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "40")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years_134567()
+        {
+#line 24
+this.StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years("134567", "John", "Stacks", "30", "30", "30", "30", "40", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined based on the credits completed: 456456")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Extended on completion of 160 credits" +
+            ", but took more than 4 years: 145645")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "456456")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "456456")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:DegreeStatus", "Disqualified")]
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted_456456()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "145645")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "145645")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "Jack")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Wright")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "20")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "20")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "40")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years_145645()
         {
-#line 17
-this.StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted("456456", "Disqualified", ((string[])(null)));
+#line 24
+this.StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years("145645", "Jack", "Wright", "40", "20", "20", "40", "40", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined based on the credits completed: 345345")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Extended on completion of 160 credits" +
+            ", but took more than 4 years: 232334")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "345345")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "345345")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:DegreeStatus", "Disqualified")]
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted_345345()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "232334")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "232334")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "Josh")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Monty")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "40")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years_232334()
         {
-#line 17
-this.StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted("345345", "Disqualified", ((string[])(null)));
+#line 24
+this.StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years("232334", "Josh", "Monty", "0", "40", "40", "40", "40", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined based on the credits completed: 345348")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Extended on completion of 160 credits" +
+            ", but took more than 4 years: 234234")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "345348")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "345348")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:DegreeStatus", "Disqualified")]
-        public virtual void StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted_345348()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "234234")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "234234")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "Jermey")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Clark")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "40")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years_234234()
         {
-#line 17
-this.StudentsDegreeStatusIsDeterminedBasedOnTheCreditsCompleted("345348", "Disqualified", ((string[])(null)));
+#line 24
+this.StudentsDegreeStatusIsDeterminedToBeExtendedOnCompletionOf160CreditsButTookMoreThan4Years("234234", "Jermey", "Clark", "40", "0", "40", "40", "40", ((string[])(null)));
+#line hidden
+        }
+        
+        public virtual void StudentsDegreeStatusIsDeterminedToBeAwardedOnCompletionOf160CreditsIn4Years(string studentID, string firstName, string lastName, string firstYearCredits, string secondYearCredits, string thirdYearCredits, string fourthYearCredits, string fifthYearCredits, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("StudentID", studentID);
+            argumentsOfScenario.Add("FirstName", firstName);
+            argumentsOfScenario.Add("LastName", lastName);
+            argumentsOfScenario.Add("FirstYearCredits", firstYearCredits);
+            argumentsOfScenario.Add("SecondYearCredits", secondYearCredits);
+            argumentsOfScenario.Add("ThirdYearCredits", thirdYearCredits);
+            argumentsOfScenario.Add("FourthYearCredits", fourthYearCredits);
+            argumentsOfScenario.Add("FifthYearCredits", fifthYearCredits);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Student\'s degree status is determined to be Awarded on completion of 160 credits " +
+                    "in 4 years", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 39
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 41
+testRunner.Given(string.Format("the student data is available as {0} {1} {2} {3} {4} {5} {6} {7}", studentID, firstName, lastName, firstYearCredits, secondYearCredits, thirdYearCredits, fourthYearCredits, fifthYearCredits), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 42
+testRunner.And(string.Format("user provides Student ID {0} who needed only 4 years to complete 160 credits", studentID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 43
+testRunner.When("user search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 44
+testRunner.Then("student\'s status is determined to be \"Awarded\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Student\'s degree status is determined to be Awarded on completion of 160 credits " +
+            "in 4 years: 134567")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "StudentDegreeStatus")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "134567")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:StudentID", "134567")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstName", "John")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LastName", "Stacks")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SecondYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ThirdYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FourthYearCredits", "40")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FifthYearCredits", "")]
+        public virtual void StudentsDegreeStatusIsDeterminedToBeAwardedOnCompletionOf160CreditsIn4Years_134567()
+        {
+#line 39
+this.StudentsDegreeStatusIsDeterminedToBeAwardedOnCompletionOf160CreditsIn4Years("134567", "John", "Stacks", "40", "40", "40", "40", "", ((string[])(null)));
 #line hidden
         }
     }
