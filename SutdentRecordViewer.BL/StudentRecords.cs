@@ -6,15 +6,15 @@ namespace SutdentRecordViewer.BL
 {
     public class StudentRecords : IStudentRecords
     {
-        private readonly IStudentRepository _studentRepository;
+        public IStudentRepository StudentRepository { get;}
 
         public StudentRecords(IStudentRepository studentRepository)
         {
-            _studentRepository = studentRepository;
+            StudentRepository = studentRepository;
         }
-        public int AddStudent(IEnumerable<Student> students)
+        public IEnumerable<Student> GetAll()
         {
-            return _studentRepository.Add(students);
+            return StudentRepository.GetAll();
         }
 
         public Student GetStudent(string studentID)
@@ -27,7 +27,7 @@ namespace SutdentRecordViewer.BL
             if (!isValidStudentId)
                 throw new ArgumentException(Constants.InvalidStudentIdMessage);
 
-            var foundStudent =  _studentRepository.Get(validStudentId);
+            var foundStudent = StudentRepository.Get(validStudentId);
 
             if(foundStudent != null)
                 foundStudent.StudentStatus = DetermineDegreeStatus(foundStudent);

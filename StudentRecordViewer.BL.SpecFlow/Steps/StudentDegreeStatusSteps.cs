@@ -58,7 +58,7 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
                     Year5Credits = int.TryParse(fifthYearCredits, out int yearFiveCredits) ? yearFiveCredits : 0,
                 }
             };
-            _studentRecords.AddStudent(studentsToBePopulated);
+            _studentRecords.StudentRepository.AllStudents = studentsToBePopulated;
         }
 
         [Given(@"user provides Student ID (.*) who needed only 4 years to complete 160 credits")]

@@ -31,7 +31,7 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         {
             var student = (Student)_scenarioContext["Student"];
             student.ID = studentID;
-            var result = _studentRecords.AddStudent(new List<Student> { student });
+            _studentRecords.StudentRepository.AllStudents = new List<Student> { student };
         }
 
         [Given(@"user provides Student ID (.*)")]

@@ -5,7 +5,8 @@ namespace SutdentRecordViewer.BL
 {
     public interface IStudentRecords
     {
+        IStudentRepository StudentRepository { get; }
         public Student GetStudent(string studentID);
-        public int AddStudent(IEnumerable<Student> students);
+        public IEnumerable<Student> GetAll();
     }
 }
