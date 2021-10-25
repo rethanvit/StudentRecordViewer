@@ -14,10 +14,10 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         private readonly ScenarioContext _scenarioContext;
         private readonly IStudentRecords _studentRecords;
 
-        public SearchStudentIDSteps(ScenarioContext scenarioContext)
+        public SearchStudentIDSteps(ScenarioContext scenarioContext, IStudentRecords studentRecords)
         {
             _scenarioContext = scenarioContext;
-            _studentRecords = new StudentRecords(new StudentRespository());
+            _studentRecords = studentRecords;
         }
 
         [Given(@"the students First name is ""(.*)"" and Last name is ""(.*)""")]
