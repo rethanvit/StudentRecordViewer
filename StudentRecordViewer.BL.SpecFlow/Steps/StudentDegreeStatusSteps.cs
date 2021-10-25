@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StudentRecordViewer.BL.SpecFlow.Contexts;
 using StudentRecordViewer.DL;
 using SutdentRecordViewer.BL;
 using System;
@@ -11,13 +12,13 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
     [Scope(Feature = "StudentDegreeStatus")]
     public class StudentDegreeStatusSteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly StudentContext _studentContext;
         private readonly IStudentRecords _studentRecords;
 
-        public StudentDegreeStatusSteps(ScenarioContext scenarioContext)
+        public StudentDegreeStatusSteps(StudentContext studentContext, IStudentRecords studentRecords)
         {
-            _scenarioContext = scenarioContext;
-            _studentRecords = new StudentRecords(new StudentRespository());
+            _studentContext = studentContext;
+            _studentRecords = studentRecords;
         }
 
         //[Given(@"the student data is available as shown")]
@@ -64,9 +65,9 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         [Given(@"user provides Student ID (.*) who needed only 4 years to complete 160 credits")]
         [Given(@"user provides Student ID (.*) who needed more than 4 years to complete 160 credits")]
         [Given(@"user provides Student ID (.*) who could not complete 160 credits in 5 years")]
-        public void GivenUserProvidesStudentIDWhoCouldNotCompleteCreditsInYears(int studentID)
+        public void GivenUserProvidesStudentIDWhoCouldNotCompleteCreditsInYears(string studentID)
         {
-            _scenarioContext["studentIDProvided"] = studentID;
+            _studentContext.StudentProvidedByUser = studentID;
         }
 
         [When(@"user search")]
@@ -74,20 +75,19 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         {
             try
             {
-                var studentIDToBeSearched = _scenarioContext["studentIDProvided"]?.ToString();
-                _scenarioContext["studentRecordFound"] = _studentRecords.GetStudent(studentIDToBeSearched);
+                var studentIDToBeSearched = _studentContext.StudentProvidedByUser?.ToString();
+                _studentContext.SearchedStudent = _studentRecords.GetStudent(studentIDToBeSearched);
             }
             catch (Exception ex)
             {
-                _scenarioContext["errorMessage"] = ex.Message;
+                _studentContext.FeedbackMessage = ex.Message;
             }
         }
-
 
         [Then(@"student's status is determined to be ""(.*)""")]
         public void ThenStudentSStatusIsDeterminedToBeExtended(string degreeStatus)
         {
-            var studentFound= (Student)_scenarioContext["studentRecordFound"];
+            var studentFound = _studentContext.SearchedStudent;
             Assert.AreEqual(Enum.Parse(typeof(DegreeStatus), degreeStatus).ToString(), studentFound.StudentStatus.ToString());
         }
 

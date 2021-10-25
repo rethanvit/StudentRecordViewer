@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StudentRecordViewer.BL.SpecFlow.Contexts;
 using StudentRecordViewer.DL;
 using SutdentRecordViewer.BL;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TechTalk.SpecFlow;
 
 namespace StudentRecordViewer.BL.SpecFlow.Steps
@@ -11,33 +13,32 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
     [Scope(Feature = "SearchStudentID")]
     public class SearchStudentIDSteps
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly StudentContext _studentContext;
         private readonly IStudentRecords _studentRecords;
 
-        public SearchStudentIDSteps(ScenarioContext scenarioContext, IStudentRecords studentRecords)
+        public SearchStudentIDSteps(StudentContext studentContext, IStudentRecords studentRecords)
         {
-            _scenarioContext = scenarioContext;
+            _studentContext = studentContext;
             _studentRecords = studentRecords;
         }
 
         [Given(@"the students First name is ""(.*)"" and Last name is ""(.*)""")]
         public void GivenTheStudentsFirstNameIsAndLastNameIs(string firstName, string lastName)
         {
-            _scenarioContext["Student"] = new Student { FirstName = firstName, LastName = lastName };
+            _studentContext.StudentsToBeSetup.Add(new Student { FirstName = firstName, LastName = lastName });
         }
 
         [Given(@"the student id is (.*)")]
         public void GivenTheStudentIdIs(int studentID)
         {
-            var student = (Student)_scenarioContext["Student"];
-            student.ID = studentID;
-            _studentRecords.StudentRepository.AllStudents = new List<Student> { student };
+            _studentContext.StudentsToBeSetup.Single().ID = studentID;
+            _studentRecords.StudentRepository.AllStudents = _studentContext.StudentsToBeSetup;
         }
 
         [Given(@"user provides Student ID (.*)")]
         public void GivenUserProvidesStudentID(string invalidStudentId)
         {
-            _scenarioContext["studentIDProvided"] = invalidStudentId;
+            _studentContext.StudentProvidedByUser = invalidStudentId;
         }
 
         [When(@"user search")]
@@ -45,25 +46,25 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         {
             try
             {
-                var studentIDToBeSearched = _scenarioContext["studentIDProvided"]?.ToString();
-                _scenarioContext["studentFound"] = _studentRecords.GetStudent(studentIDToBeSearched);
+                var studentIDToBeSearched = _studentContext.StudentProvidedByUser?.ToString();
+                _studentContext.SearchedStudent = _studentRecords.GetStudent(studentIDToBeSearched);
             }
             catch (Exception ex)
             {
-                _scenarioContext["errorMessage"] = ex.Message;
+                _studentContext.FeedbackMessage = ex.Message;
             }
         }
 
         [Given(@"user do not provide a StudentID")]
         public void GivenUserDoNotProvideAStudentID()
         {
-            _scenarioContext["studentIDProvided"] = string.Empty;
+            _studentContext.StudentProvidedByUser = string.Empty;
         }
 
         [Then(@"user should see student's First name as ""(.*)"" and Last name as ""(.*)""")]
         public void ThenUserShouldSeeStudentSFirstNameAsAndLastNameAs(string firstName, string lastName)
         {
-            var actualStudent = (Student)_scenarioContext["studentFound"];
+            var actualStudent = _studentContext.SearchedStudent;
             Assert.AreEqual(firstName, actualStudent.FirstName);
             Assert.AreEqual(lastName, actualStudent.LastName);
         }
@@ -71,13 +72,13 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         [Then(@"user should get an Error message stating the StudentID is Invalid.")]
         public void ThenUserShouldGetAnErrorMessageStatingTheStudentIDIsInvalid()
         {
-            Assert.AreEqual(Constants.InvalidStudentIdMessage, (string)_scenarioContext["errorMessage"]);
+            Assert.AreEqual(Constants.InvalidStudentIdMessage, _studentContext.FeedbackMessage);
         }
         
         [Then(@"user should get an error message stating StudentID does not exist\.")]
         public void ThenUserShouldGetAnErrorMessageStatingStudentIDDoesNotExist()
         {
-            Assert.AreEqual(Constants.NonExistentStudent, (string)_scenarioContext["errorMessage"]);
+            Assert.AreEqual(Constants.NonExistentStudent, _studentContext.FeedbackMessage);
         }
     }
 }
