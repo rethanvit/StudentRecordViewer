@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace StudentRecordViewer.BL.SpecFlow.Contexts
 {
-    public class StudentContext
+    public class StudentSpecContext
     {
-        public List<Student> StudentsToBeSetup { get; set; }
-        public string StudentProvidedByUser { get; set; }
+        public Student StudentsToBeSetup { get; set; }
+        public string StudentIdProvidedByUser { get; set; }
         public string FeedbackMessage { get; set; }
         public Student SearchedStudent { get; set; }
-        public StudentContext()
+        public StudentSpecContext()
         {
-            StudentsToBeSetup = new List<Student>();
+            StudentsToBeSetup = new Student();
         }
     }
 }

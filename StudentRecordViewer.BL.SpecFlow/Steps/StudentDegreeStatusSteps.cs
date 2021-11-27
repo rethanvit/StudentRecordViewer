@@ -12,54 +12,35 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
     [Scope(Feature = "StudentDegreeStatus")]
     public class StudentDegreeStatusSteps
     {
-        private readonly StudentContext _studentContext;
-        private readonly IStudentRecords _studentRecords;
+        private readonly StudentSpecContext _studentContext;
+        private readonly IStudentDetail _studentRecords;
 
-        public StudentDegreeStatusSteps(StudentContext studentContext, IStudentRecords studentRecords)
+        public StudentDegreeStatusSteps(StudentSpecContext studentContext, IStudentDetail studentRecords)
         {
             _studentContext = studentContext;
             _studentRecords = studentRecords;
         }
 
-        //[Given(@"the student data is available as shown")]
-        //public void GivenFollowingIsTheListOfStudentDataIsAvailable(Table table)
-        //{
-        //    var studentsToBePopulated = new List<Student>();
-        //    foreach (var row in table.Rows)
-        //    {
-        //        studentsToBePopulated.Add(new Student
-        //        {
-        //            ID = int.Parse(row[0]),
-        //            FirstName = row[1],
-        //            LastName = row[2],
-        //            Year1Credits = int.TryParse(row[3], out int firstYearCredits) ? firstYearCredits : 0,
-        //            Year2Credits = int.TryParse(row[4], out int secondYearCredits) ? secondYearCredits : 0,
-        //            Year3Credits = int.TryParse(row[5], out int thirdYearCredits) ? thirdYearCredits : 0,
-        //            Year4Credits = int.TryParse(row[6], out int fourthYearCredits) ? fourthYearCredits : 0,
-        //            Year5Credits = int.TryParse(row[7], out int fifthYearCredits) ? fifthYearCredits : 0,
-        //        });
-        //    }
-        //    _studentRecords.AddStudent(studentsToBePopulated);
-        //}
-
         [Given(@"the student data is available as (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*)")]
         public void GivenTheStudentDataIsAvailableAsJohnStacks(int studentID, string firstName, string lastName, string firstYearCredits, string secondYearCredits, string thirdYearCredits, string fourthYearCredits, string fifthYearCredits)
         {
-            var studentsToBePopulated = new List<Student>
+            var studentToBePopulated = new Student
             {
-                new Student
+                StudentId = studentID,
+                FirstName = firstName,
+                LastName = lastName,
+                StudentCredits = new StudentCredits
                 {
-                    ID = studentID,
-                    FirstName = firstName,
-                    LastName = lastName,
                     Year1Credits = int.TryParse(firstYearCredits, out int yearOneCredits) ? yearOneCredits : 0,
                     Year2Credits = int.TryParse(secondYearCredits, out int yearTwoCredits) ? yearTwoCredits : 0,
                     Year3Credits = int.TryParse(thirdYearCredits, out int yearThreeCredits) ? yearThreeCredits : 0,
                     Year4Credits = int.TryParse(fourthYearCredits, out int yearFourCredits) ? yearFourCredits : 0,
-                    Year5Credits = int.TryParse(fifthYearCredits, out int yearFiveCredits) ? yearFiveCredits : 0,
+                    Year5Credits = int.TryParse(fifthYearCredits, out int yearFiveCredits) ? yearFiveCredits : 0
                 }
             };
-            _studentRecords.StudentRepository.AllStudents = studentsToBePopulated;
+
+            _studentRecords.StudentRepository = new StudentRespository(new StudentContext());
+            _studentRecords.StudentRepository.AddStudent(studentToBePopulated);
         }
 
         [Given(@"user provides Student ID (.*) who needed only 4 years to complete 160 credits")]
@@ -67,7 +48,7 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         [Given(@"user provides Student ID (.*) who could not complete 160 credits in 5 years")]
         public void GivenUserProvidesStudentIDWhoCouldNotCompleteCreditsInYears(string studentID)
         {
-            _studentContext.StudentProvidedByUser = studentID;
+            _studentContext.StudentIdProvidedByUser = studentID;
         }
 
         [When(@"user search")]
@@ -75,7 +56,7 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         {
             try
             {
-                var studentIDToBeSearched = _studentContext.StudentProvidedByUser?.ToString();
+                var studentIDToBeSearched = _studentContext.StudentIdProvidedByUser?.ToString();
                 _studentContext.SearchedStudent = _studentRecords.GetStudent(studentIDToBeSearched);
             }
             catch (Exception ex)
@@ -91,5 +72,12 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
             Assert.AreEqual(Enum.Parse(typeof(DegreeStatus), degreeStatus).ToString(), studentFound.StudentStatus.ToString());
         }
 
+        [AfterScenario]
+        public void CleanupStudent()
+        {
+            var result = int.TryParse(_studentContext.StudentIdProvidedByUser, out int studentId);
+            if(result)
+                _studentRecords.StudentRepository.RemoveStudent(studentId);
+        }
     }
 }

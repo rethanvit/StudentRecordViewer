@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace SutdentRecordViewer.BL
 {
-    public class StudentRecords : IStudentRecords
+    public class StudentDetail : IStudentDetail
     {
-        public IStudentRepository StudentRepository { get;}
+        public IStudentRepository StudentRepository { get; set; }
 
-        public StudentRecords(IStudentRepository studentRepository)
+        public StudentDetail(IStudentRepository studentRepository)
         {
             StudentRepository = studentRepository;
         }
@@ -30,24 +30,27 @@ namespace SutdentRecordViewer.BL
             var foundStudent = StudentRepository.Get(validStudentId);
 
             if(foundStudent != null)
-                foundStudent.StudentStatus = DetermineDegreeStatus(foundStudent);
+            {
+                var studentCredits = StudentRepository.GetStudentCredits(foundStudent.StudentCreditsId);
+                foundStudent.StudentStatus = DetermineDegreeStatus(foundStudent, studentCredits);
+            }
 
             return foundStudent ?? throw new KeyNotFoundException(Constants.NonExistentStudent);
         }
 
-        private DegreeStatus DetermineDegreeStatus(Student foundStudent)
+        private DegreeStatus DetermineDegreeStatus(Student foundStudent, StudentCredits studentCredits)
         {
-            var totalCreditsCompleted = foundStudent.Year1Credits + foundStudent.Year2Credits + foundStudent.Year3Credits + foundStudent.Year4Credits + foundStudent.Year5Credits;
-            
+            var totalCreditsCompleted = studentCredits.Year1Credits + studentCredits.Year2Credits + studentCredits.Year3Credits + studentCredits.Year4Credits + studentCredits.Year5Credits;
+
             if (totalCreditsCompleted < Constants.TotalCreditsAllowed)
             {
                 foundStudent.StudentStatus = DegreeStatus.Disqualified;
             }
-            else if (totalCreditsCompleted - foundStudent.Year5Credits - foundStudent.Year4Credits < 120 && totalCreditsCompleted - foundStudent.Year5Credits == 120)
+            else if (totalCreditsCompleted - studentCredits.Year5Credits - studentCredits.Year4Credits < 120 && totalCreditsCompleted - studentCredits.Year5Credits == 120)
             {
                 foundStudent.StudentStatus = DegreeStatus.Extended;
             }
-            else if (totalCreditsCompleted - foundStudent.Year5Credits == Constants.TotalCreditsAllowed)
+            else if (totalCreditsCompleted - studentCredits.Year5Credits == Constants.TotalCreditsAllowed)
             {
                 foundStudent.StudentStatus = DegreeStatus.Awarded;
             }

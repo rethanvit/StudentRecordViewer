@@ -96,7 +96,8 @@ namespace StudentRecordViewer.BL.SpecFlow.Features
 #line 3
 #line hidden
 #line 4
-testRunner.Given("the students First name is \"Jane\" and Last name is \"Smith\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given("the students First name is \"Jane\" Last name is \"Smith\" FirstYearCredits are 30 Se" +
+                    "condYearCredits are 30 ThirdYearCredits are 30", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
 testRunner.And("the student id is 342232", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

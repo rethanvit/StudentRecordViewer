@@ -13,32 +13,44 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
     [Scope(Feature = "SearchStudentID")]
     public class SearchStudentIDSteps
     {
-        private readonly StudentContext _studentContext;
-        private readonly IStudentRecords _studentRecords;
+        private readonly StudentSpecContext _studentSpecContext;
+        private readonly IStudentDetail _studentRecords;
 
-        public SearchStudentIDSteps(StudentContext studentContext, IStudentRecords studentRecords)
+        public SearchStudentIDSteps(StudentSpecContext studentContext, IStudentDetail studentRecords)
         {
-            _studentContext = studentContext;
+            _studentSpecContext = studentContext;
             _studentRecords = studentRecords;
         }
 
-        [Given(@"the students First name is ""(.*)"" and Last name is ""(.*)""")]
-        public void GivenTheStudentsFirstNameIsAndLastNameIs(string firstName, string lastName)
+        [Given(@"the students First name is ""(.*)"" Last name is ""(.*)"" FirstYearCredits are (.*) SecondYearCredits are (.*) ThirdYearCredits are (.*)")]
+        public void GivenTheStudentsFirstNameIsLastNameIsFirstYearCreditsAreSecondYearCreditsAreThirdYearCreditsAreFourthyearCredits(string firstName, string lastName, int firstYearCredits, int secondYearCredits, int thirdYearCredits)
         {
-            _studentContext.StudentsToBeSetup.Add(new Student { FirstName = firstName, LastName = lastName });
+            _studentSpecContext.StudentsToBeSetup = new Student
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                StudentCredits = new StudentCredits
+                {
+                    Year1Credits = firstYearCredits,
+                    Year2Credits = secondYearCredits,
+                    Year3Credits = thirdYearCredits
+                }
+            };
         }
+
 
         [Given(@"the student id is (.*)")]
         public void GivenTheStudentIdIs(int studentID)
         {
-            _studentContext.StudentsToBeSetup.Single().ID = studentID;
-            _studentRecords.StudentRepository.AllStudents = _studentContext.StudentsToBeSetup;
+            _studentSpecContext.StudentsToBeSetup.StudentId = studentID;
+            _studentRecords.StudentRepository = new StudentRespository(new StudentContext());
+            _studentRecords.StudentRepository.AddStudent(_studentSpecContext.StudentsToBeSetup);
         }
 
         [Given(@"user provides Student ID (.*)")]
         public void GivenUserProvidesStudentID(string invalidStudentId)
         {
-            _studentContext.StudentProvidedByUser = invalidStudentId;
+            _studentSpecContext.StudentIdProvidedByUser = invalidStudentId;
         }
 
         [When(@"user search")]
@@ -46,25 +58,25 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         {
             try
             {
-                var studentIDToBeSearched = _studentContext.StudentProvidedByUser?.ToString();
-                _studentContext.SearchedStudent = _studentRecords.GetStudent(studentIDToBeSearched);
+                var studentIDToBeSearched = _studentSpecContext.StudentIdProvidedByUser?.ToString();
+                _studentSpecContext.SearchedStudent = _studentRecords.GetStudent(studentIDToBeSearched);
             }
             catch (Exception ex)
             {
-                _studentContext.FeedbackMessage = ex.Message;
+                _studentSpecContext.FeedbackMessage = ex.Message;
             }
         }
 
         [Given(@"user do not provide a StudentID")]
         public void GivenUserDoNotProvideAStudentID()
         {
-            _studentContext.StudentProvidedByUser = string.Empty;
+            _studentSpecContext.StudentIdProvidedByUser = string.Empty;
         }
 
         [Then(@"user should see student's First name as ""(.*)"" and Last name as ""(.*)""")]
         public void ThenUserShouldSeeStudentSFirstNameAsAndLastNameAs(string firstName, string lastName)
         {
-            var actualStudent = _studentContext.SearchedStudent;
+            var actualStudent = _studentSpecContext.SearchedStudent;
             Assert.AreEqual(firstName, actualStudent.FirstName);
             Assert.AreEqual(lastName, actualStudent.LastName);
         }
@@ -72,13 +84,19 @@ namespace StudentRecordViewer.BL.SpecFlow.Steps
         [Then(@"user should get an Error message stating the StudentID is Invalid.")]
         public void ThenUserShouldGetAnErrorMessageStatingTheStudentIDIsInvalid()
         {
-            Assert.AreEqual(Constants.InvalidStudentIdMessage, _studentContext.FeedbackMessage);
+            Assert.AreEqual(Constants.InvalidStudentIdMessage, _studentSpecContext.FeedbackMessage);
         }
         
         [Then(@"user should get an error message stating StudentID does not exist\.")]
         public void ThenUserShouldGetAnErrorMessageStatingStudentIDDoesNotExist()
         {
-            Assert.AreEqual(Constants.NonExistentStudent, _studentContext.FeedbackMessage);
+            Assert.AreEqual(Constants.NonExistentStudent, _studentSpecContext.FeedbackMessage);
+        }
+
+        [AfterScenario]
+        public void CleanupStudent()
+        {
+           _studentRecords.StudentRepository.RemoveStudent(_studentSpecContext.StudentsToBeSetup.StudentId);
         }
     }
 }

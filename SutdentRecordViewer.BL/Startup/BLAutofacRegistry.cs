@@ -12,7 +12,7 @@ namespace SutdentRecordViewer.BL.Startup
     {
         public static void Register(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterAssemblyTypes(typeof(StudentRecords).Assembly).AsImplementedInterfaces();
+            containerBuilder.RegisterAssemblyTypes(typeof(StudentDetail).Assembly).AsImplementedInterfaces();
             containerBuilder.RegisterAssemblyTypes(typeof(StudentRespository).Assembly).AsImplementedInterfaces();
         }
     }

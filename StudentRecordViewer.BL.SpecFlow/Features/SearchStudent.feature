@@ -1,7 +1,7 @@
 ﻿Feature: SearchStudentID
 #Probably hooks might be better idea to be used rather than background here. 
 Background:
-Given the students First name is "Jane" and Last name is "Smith"
+Given the students First name is "Jane" Last name is "Smith" FirstYearCredits are 30 SecondYearCredits are 30 ThirdYearCredits are 30
 And the student id is 342232
 
 Scenario: Get First and Last Name for a Valid StudentID
