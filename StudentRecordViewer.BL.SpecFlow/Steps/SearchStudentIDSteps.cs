@@ -3,8 +3,6 @@ using StudentRecordViewer.BL.SpecFlow.Contexts;
 using StudentRecordViewer.DL;
 using SutdentRecordViewer.BL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using TechTalk.SpecFlow;
 
 namespace StudentRecordViewer.BL.SpecFlow.Steps

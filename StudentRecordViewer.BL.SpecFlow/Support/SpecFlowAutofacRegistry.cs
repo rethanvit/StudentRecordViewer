@@ -2,11 +2,6 @@
 using SpecFlow.Autofac;
 using StudentRecordViewer.BL.SpecFlow.Steps;
 using SutdentRecordViewer.BL.Startup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentRecordViewer.BL.SpecFlow.Support
 {
