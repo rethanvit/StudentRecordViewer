@@ -1,0 +1,93 @@
+﻿@model StudentInputData
+@{
+    ViewData["Title"] = "Home Page";
+    string statusStyle = "";
+ }
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Student Record Viewer</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h4>Please provide Student Id to view credits and status.</h4>
+                <hr />
+                @if (!string.IsNullOrWhiteSpace(Model.FeedbackMessage))
+                {
+                    <div class="alert alert-warning" role="alert">
+                        @Model.FeedbackMessage
+                    </div>
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="StudentData.StudentId">Student Id:</label>
+                    <input asp-for="StudentData.StudentId" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </section>
+    </div>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+    @if (Model.IsSuccessful)
+    {
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Student Id</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.StudentData.StudentId</td>
+                    <td>@Model.StudentData.FirstName</td>
+                    <td>@Model.StudentData.LastName</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    @if (Model.IsSuccessful)
+    {
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">First Year Credits</th>
+                    <th scope="col">Second Year Credits</th>
+                    <th scope="col">Third Year Credits</th>
+                    <th scope="col">Fourth Year Credits</th>
+                    <th scope="col">Fifth Year Credits</th>
+                    <th scope="col">Degree Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.StudentData.StudentCredits.Year1Credits</td>
+                    <td>@Model.StudentData.StudentCredits.Year2Credits</td>
+                    <td>@Model.StudentData.StudentCredits.Year3Credits</td>
+                    <td>@Model.StudentData.StudentCredits.Year4Credits</td>
+                    <td>@Model.StudentData.StudentCredits.Year5Credits</td>
+                    @if (Model.StudentData.StudentStatus == StudentRecordViewer.DL.DegreeStatus.Awarded)
+                    {
+                        statusStyle = "text-success";
+                    }
+                    else if (Model.StudentData.StudentStatus == StudentRecordViewer.DL.DegreeStatus.Extended)
+                    {
+                        statusStyle = "text-warning";
+                    }
+                    else if (Model.StudentData.StudentStatus == StudentRecordViewer.DL.DegreeStatus.Disqualified)
+                    {
+                        statusStyle = "text-danger";
+                    }
+                    <td class="font-weight-bold @statusStyle">@Model.StudentData.StudentStatus</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>

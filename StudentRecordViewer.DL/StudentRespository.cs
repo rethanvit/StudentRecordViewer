@@ -50,7 +50,7 @@ namespace StudentRecordViewer.DL
         public int RemoveStudent(int studentId)
         {
             var student = studentContext.Student.Where(s => s.StudentId == studentId).Include(c => c.StudentCredits).SingleOrDefault();
-            studentContext.Remove(student);
+            studentContext.Remove(student.StudentCredits);
             return studentContext.SaveChanges();
         }
     }
